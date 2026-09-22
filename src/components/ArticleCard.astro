@@ -1,0 +1,11 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { categoryBySlug } from '../config/categories';
+import { url, dateLabel } from '../lib/content';
+interface Props { article: CollectionEntry<'articles'>; compact?: boolean }
+const {article,compact=false} = Astro.props;
+---
+<article class:list={['article-card',{compact}]}>
+ <a class="card-image" href={url('articulos/'+article.id+'/')} tabindex="-1" aria-hidden="true"><img src={url(article.data.image)} alt="" width="1200" height="720" loading="lazy"/></a>
+ <div class="card-content"><span class="eyebrow">{categoryBySlug(article.data.category).name}{article.data.sponsored && ' · PATROCINADO'}</span><h3><a href={url('articulos/'+article.id+'/')}>{article.data.title}</a></h3>{!compact && <p>{article.data.description}</p>}<div class="meta"><time datetime={article.data.date.toISOString()}>{dateLabel(article.data.date)}</time><span>Guía evergreen</span></div></div>
+</article>

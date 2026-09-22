@@ -1,0 +1,6 @@
+---
+import type { Sponsor } from '../config/sponsors';
+interface Props { sponsor?: Sponsor }
+const { sponsor } = Astro.props;
+---
+{sponsor && <aside class="sponsor"><small>PUBLICIDAD · {sponsor.label || 'PATROCINADOR'}</small><a href={sponsor.url} rel="sponsored noopener">{sponsor.name} <span>↗</span></a><p>{sponsor.description}</p></aside>}

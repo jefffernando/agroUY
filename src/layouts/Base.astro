@@ -1,0 +1,37 @@
+---
+import '../styles/global.css';
+import { categories } from '../config/categories';
+import { siteConfig } from '../config/site';
+import { url } from '../lib/content';
+interface Props { title: string; description?: string; image?: string; canonical?: string; noindex?: boolean; schema?: Record<string,unknown>; crumbs?: {name:string;path:string}[] }
+const {title,description=siteConfig.description,image='/images/campo.svg',canonical,noindex=false,schema,crumbs=[]} = Astro.props;
+const absolute = (path: string) => new URL(path, Astro.site).href;
+const canonicalUrl = canonical || absolute(Astro.url.pathname.replace(/\/404\/$/, '/404.html'));
+const ga = import.meta.env.PUBLIC_GA_ID;
+if (ga && !/^G-[A-Z0-9]+$/.test(ga)) throw new Error('PUBLIC_GA_ID inválido');
+const json = (value: unknown) => JSON.stringify(value).replace(/</g,'\\u003c');
+const organization = {'@context':'https://schema.org','@type':'Organization',name:siteConfig.name,url:absolute(url()),logo:absolute(url('favicon.svg'))};
+const breadcrumb = {'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:crumbs.map((c,i)=>({'@type':'ListItem',position:i+1,name:c.name,item:absolute(url(c.path))}))};
+---
+<!doctype html>
+<html lang="es-UY"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>{title} | {siteConfig.name}</title><meta name="description" content={description}/>
+<link rel="canonical" href={canonicalUrl}/><meta name="robots" content={noindex ? 'noindex,follow' : 'index,follow'}/>
+<link rel="icon" type="image/svg+xml" href={url('favicon.svg')}/>
+<link rel="alternate" type="application/rss+xml" title="Agro Uruguay" href={url('rss.xml')}/>
+<meta property="og:locale" content="es_UY"/><meta property="og:site_name" content={siteConfig.name}/><meta property="og:type" content={schema ? 'article' : 'website'}/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonicalUrl}/><meta property="og:image" content={absolute(url(image.replace(/\.svg$/, '.png')))}/>
+<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/><meta name="twitter:image" content={absolute(url(image.replace(/\.svg$/, '.png')))}/>
+{import.meta.env.PUBLIC_SEARCH_CONSOLE_VERIFICATION && <meta name="google-site-verification" content={import.meta.env.PUBLIC_SEARCH_CONSOLE_VERIFICATION}/>}
+<script type="application/ld+json" set:html={json(organization)}/>
+{crumbs.length > 0 && <script type="application/ld+json" set:html={json(breadcrumb)}/>}
+{schema && <script type="application/ld+json" set:html={json(schema)}/>}
+{ga && <><script is:inline async src={'https://www.googletagmanager.com/gtag/js?id='+ga}></script><script is:inline define:vars={{ga}}>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config',ga);</script></>}
+</head><body>
+<a class="skip-link" href="#contenido">Ir al contenido</a>
+<div class="topbar"><div class="container"><span>URUGUAY · INFORMACIÓN QUE CULTIVA</span><a href={url('sobre-nosotros/')}>Un proyecto independiente ↗</a></div></div>
+<header class="container masthead"><a class="brand" href={url()} aria-label="Agro Uruguay, inicio"><svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M3 36V17L20 4l17 13v19H3Z"/><path fill="none" stroke="#f4f1e9" stroke-width="2" d="M9 29h22M13 24h14M18 19h4"/></svg><span>agro<span class="brand-light">uruguay</span><small>EL CAMPO, MÁS CERCA.</small></span></a><a class="header-cta" href={url('#newsletter')}>Nuestro boletín <span>↗</span></a></header>
+<nav class="nav" aria-label="Categorías"><div class="container nav-inner"><a href={url()} aria-current={Astro.url.pathname===url()?'page':undefined}>Inicio</a>{categories.map(c=><a href={url('categorias/'+c.slug+'/')} aria-current={Astro.url.pathname===url('categorias/'+c.slug+'/')?'page':undefined}>{c.name}</a>)}</div></nav>
+<main id="contenido" class="container">{crumbs.length > 0 && <nav class="breadcrumbs" aria-label="Ruta de navegación">{crumbs.map((c,i)=><><a href={url(c.path)} aria-current={i===crumbs.length-1?'page':undefined}>{c.name}</a>{i<crumbs.length-1 && <span aria-hidden="true">/</span>}</>)}</nav>}<slot/></main>
+<footer><div class="container footer-grid"><div><a class="footer-brand" href={url()}>agro uruguay<span>↗</span></a><p>Información útil para un campo<br/>que siempre está en movimiento.</p><small>Hecho para Uruguay.</small></div><div><strong>Explorá</strong><a href={url('articulos/')}>Todas las publicaciones</a><a href={url('categorias/guias/')}>Guías y recursos</a><a href={url('rss.xml')}>Feed RSS</a></div><div><strong>El proyecto</strong><a href={url('sobre-nosotros/')}>Sobre nosotros</a><a href={url('publicidad/')}>Publicidad y alianzas</a><a href={url('privacidad/')}>Privacidad</a></div></div><div class="container footer-bottom">© {new Date().getFullYear()} Agro Uruguay <span>Edición inicial · Contenido evergreen de demostración</span></div></footer>
+</body></html>

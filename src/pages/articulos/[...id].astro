@@ -1,0 +1,24 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import NewsletterCTA from '../../components/NewsletterCTA.astro';
+import SponsoredArticle from '../../components/SponsoredArticle.astro';
+import { publishedArticles, url, dateLabel } from '../../lib/content';
+import { categoryBySlug } from '../../config/categories';
+export async function getStaticPaths(){return (await publishedArticles()).map(article=>({params:{id:article.id},props:{article}}));}
+const {article}=Astro.props;
+const {Content,headings}=await render(article);
+const category=categoryBySlug(article.data.category);
+const all=await publishedArticles();
+const related=all.filter(a=>a.id!==article.id).sort((a,b)=>Number(b.data.category===article.data.category)-Number(a.data.category===article.data.category) || b.data.tags.filter(t=>article.data.tags.includes(t)).length-a.data.tags.filter(t=>article.data.tags.includes(t)).length).slice(0,3);
+const canonical=article.data.canonical || new URL(url('articulos/'+article.id+'/'),Astro.site).href;
+const schema={'@context':'https://schema.org','@type':'Article',headline:article.data.title,description:article.data.description,image:new URL(url(article.data.image.replace(/\.svg$/, '.png')),Astro.site).href,datePublished:article.data.date.toISOString(),dateModified:(article.data.updatedDate||article.data.date).toISOString(),author:{'@type':'Organization',name:article.data.author},publisher:{'@type':'Organization',name:'Agro Uruguay'},mainEntityOfPage:canonical};
+---
+<Base title={article.data.title} description={article.data.description} image={article.data.image} canonical={canonical} schema={schema} crumbs={[{name:'Inicio',path:''},{name:category.name,path:'categorias/'+category.slug+'/'},{name:article.data.title,path:'articulos/'+article.id+'/'}]}>
+<header class="article-heading"><span class="eyebrow">{category.name} · GUÍA EVERGREEN</span><h1>{article.data.title}</h1><p>{article.data.description}</p><div class="meta">{article.data.author}<span>Publicado: <time datetime={article.data.date.toISOString()}>{dateLabel(article.data.date)}</time></span>{article.data.updatedDate && <span>Actualizado: <time datetime={article.data.updatedDate.toISOString()}>{dateLabel(article.data.updatedDate)}</time></span>}</div></header>
+{article.data.sponsored && <SponsoredArticle sponsor={article.data.sponsor}/>}
+<img class="article-cover" src={url(article.data.image)} alt="Ilustración editorial del agro" width="1200" height="720" fetchpriority="high"/>
+<div class="reading-layout"><article class="prose">{article.data.demo && <div class="notice"><strong>Guía editorial de demostración.</strong> Material introductorio evergreen; no es una noticia ni un informe de precios actuales. Revisá las fuentes y las condiciones de tu establecimiento antes de tomar decisiones.</div>}<Content/><h2>Fuentes y recursos para profundizar</h2><ul>{article.data.sources.map(s=><li><a href={s.url} rel="noopener noreferrer">{s.title} ↗</a></li>)}</ul><div class="tags">{article.data.tags.map(tag=><a href={url('tags/'+tag+'/')}>#{tag}</a>)}</div></article><aside class="toc"><span class="eyebrow">EN ESTA GUÍA</span><nav aria-label="Índice del artículo">{headings.filter(h=>h.depth===2).map(h=><a href={'#'+h.slug}>{h.text}</a>)}</nav><p>Información útil.<br/>Para guardar y compartir.</p></aside></div>
+<section><div class="section-heading"><h2>Seguí explorando</h2></div><div class="card-grid">{related.map(article=><ArticleCard article={article}/>)}</div></section><NewsletterCTA/>
+</Base>

@@ -1,0 +1,11 @@
+---
+import { siteConfig } from '../config/site';
+import { sponsors } from '../config/sponsors';
+import SponsorBanner from './SponsorBanner.astro';
+import { url } from '../lib/content';
+---
+<section class="newsletter" id="newsletter" aria-labelledby="newsletter-title">
+ <div><span class="eyebrow">UNA MIRADA AL CAMPO</span><h2 id="newsletter-title">Lo que vale la pena leer.<br/>En un solo lugar.</h2><p>Estamos preparando un boletín con guías, recursos e ideas para el agro uruguayo.</p></div>
+ <div class="newsletter-action">{siteConfig.newsletterUrl ? <><a class="button light" href={siteConfig.newsletterUrl}>Quiero suscribirme ↗</a><p>La suscripción se realiza en nuestro proveedor de correo.</p></> : <><span class="coming">Boletín próximamente</span><p>Mientras tanto, seguí las publicaciones por <a href={url('rss.xml')}>RSS</a>.</p></>}<a href={url('privacidad/')}>Privacidad y uso de datos</a></div>
+</section>
+<SponsorBanner sponsor={sponsors.newsletterSponsor} />

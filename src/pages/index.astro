@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import FeaturedArticle from '../components/FeaturedArticle.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import CategorySection from '../components/CategorySection.astro';
+import NewsletterCTA from '../components/NewsletterCTA.astro';
+import SponsorBanner from '../components/SponsorBanner.astro';
+import SponsorCard from '../components/SponsorCard.astro';
+import { sponsors } from '../config/sponsors';
+import { categories } from '../config/categories';
+import { publishedArticles, url } from '../lib/content';
+const articles = await publishedArticles();
+const featured = articles.find(a=>a.data.featured) || articles[0];
+const latest = articles.filter(a=>a.id!==featured?.id);
+---
+<Base title="El campo, con perspectiva">
+<section class="intro"><div><span class="eyebrow">CONOCIMIENTO PARA PRODUCIR MEJOR</span><h1>El campo, con perspectiva<span>.</span></h1></div><p>Ideas, guías y recursos para quienes<br/>mueven el agro uruguayo.</p></section>
+<SponsorBanner sponsor={sponsors.generalSponsor}/>
+<div class="hero-grid">{featured && <FeaturedArticle article={featured}/>}<aside class="hero-aside"><div class="section-heading"><h2>Para tener a mano</h2><span class="dot"></span></div>{latest.slice(0,3).map((article,i)=><div class="numbered"><span>0{i+1}</span><ArticleCard article={article} compact/></div>)}<a class="text-link" href={url('articulos/')}>Todas las publicaciones ↗</a></aside></div>
+<section class="topic-strip"><span>EXPLORÁ EL AGRO</span>{categories.map(c=><a href={url('categorias/'+c.slug+'/')}>{c.name} ↗</a>)}</section>
+<section><div class="section-heading"><h2>Últimas publicaciones</h2><a href={url('articulos/')}>Ver todas ↗</a></div><div class="card-grid">{latest.slice(0,3).map(article=><ArticleCard article={article}/>)}</div></section>
+{sponsors.bannerSponsors.map(sponsor=><SponsorBanner sponsor={sponsor}/>)}
+<div class="editorial-note"><span>DEL DATO A LA DECISIÓN</span><p>Menos ruido.<br/><strong>Más herramientas para tu campo.</strong></p><a href={url('sobre-nosotros/')}>Conocé nuestra propuesta ↗</a></div>
+<NewsletterCTA/>
+<div class="home-categories">{categories.map(category=><CategorySection category={category} articles={articles.filter(a=>a.data.category===category.slug)}/>)}</div>
+{sponsors.featuredCompanies.length>0 && <section><h2>Empresas destacadas</h2>{sponsors.featuredCompanies.map(sponsor=><SponsorCard sponsor={sponsor}/>)}</section>}
+</Base>

@@ -1,0 +1,13 @@
+---
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import NewsletterCTA from '../../components/NewsletterCTA.astro';
+import SponsorBanner from '../../components/SponsorBanner.astro';
+import { sponsors } from '../../config/sponsors';
+import { categories } from '../../config/categories';
+import { publishedArticles } from '../../lib/content';
+export function getStaticPaths(){return categories.map(category=>({params:{slug:category.slug},props:{category}}));}
+const { category } = Astro.props;
+const articles = (await publishedArticles()).filter(a=>a.data.category===category.slug);
+---
+<Base title={category.name+' en Uruguay'} description={category.description} crumbs={[{name:'Inicio',path:''},{name:category.name,path:'categorias/'+category.slug+'/'}]}><section class="page-heading"><span class="eyebrow">EXPLORÁ EL AGRO</span><h1>{category.name}</h1><p>{category.description}</p></section><SponsorBanner sponsor={sponsors.categorySponsors[category.slug]}/><div class="card-grid">{articles.map(article=><ArticleCard article={article}/>)}</div>{!articles.length && <p>Estamos preparando las primeras guías de esta categoría.</p>}<NewsletterCTA/></Base>

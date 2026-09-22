@@ -1,0 +1,7 @@
+---
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { publishedArticles } from '../../lib/content';
+const articles = await publishedArticles();
+---
+<Base title="Todas las publicaciones" crumbs={[{name:'Inicio',path:''},{name:'Publicaciones',path:'articulos/'}]}><section class="page-heading"><span class="eyebrow">BIBLIOTECA DEL AGRO</span><h1>Todas las publicaciones</h1><p>Guías evergreen y recursos para volver a consultar.</p></section><div class="card-grid">{articles.map(article=><ArticleCard article={article}/>)}</div></Base>

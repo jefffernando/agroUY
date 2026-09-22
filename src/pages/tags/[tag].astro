@@ -1,0 +1,8 @@
+---
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { publishedArticles } from '../../lib/content';
+export async function getStaticPaths(){const articles=await publishedArticles();return [...new Set(articles.flatMap(a=>a.data.tags))].map(tag=>({params:{tag},props:{tag,articles:articles.filter(a=>a.data.tags.includes(tag))}}));}
+const {tag,articles}=Astro.props;
+---
+<Base title={'Tema: '+tag.replaceAll('-',' ')} noindex crumbs={[{name:'Inicio',path:''},{name:tag,path:'tags/'+tag+'/'}]}><section class="page-heading"><span class="eyebrow">TEMAS RELACIONADOS</span><h1>{tag.replaceAll('-',' ')}</h1><p>Publicaciones para profundizar en este tema.</p></section><div class="card-grid">{articles.map(article=><ArticleCard article={article}/>)}</div></Base>

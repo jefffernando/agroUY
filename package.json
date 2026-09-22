@@ -1,0 +1,30 @@
+{
+  "name": "agro-uruguay",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "check": "astro check",
+    "test": "node scripts/verify-build.mjs",
+    "content:new": "node scripts/content/new.mjs",
+    "prebuild": "node scripts/generate-social.mjs",
+    "test:browser": "node scripts/check-browser.mjs"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "playwright": "^1.63.0",
+    "sharp": "^0.35.4",
+    "typescript": "^6.0.3"
+  }
+}

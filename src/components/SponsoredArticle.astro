@@ -1,0 +1,6 @@
+---
+import SponsorBanner from './SponsorBanner.astro';
+import { sponsors } from '../config/sponsors';
+interface Props { sponsor?: string }
+---
+<SponsorBanner sponsor={Astro.props.sponsor ? sponsors.articleSponsors[Astro.props.sponsor] : undefined} />

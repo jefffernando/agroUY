@@ -1,0 +1,8 @@
+---
+import ArticleCard from './ArticleCard.astro';
+import type { CollectionEntry } from 'astro:content';
+import { url } from '../lib/content';
+interface Props { category: {slug:string;name:string;description:string}; articles: CollectionEntry<'articles'>[] }
+const {category,articles} = Astro.props;
+---
+{articles.length > 0 && <section class="category-section"><div class="section-heading"><h2>{category.name}</h2><a href={url('categorias/'+category.slug+'/')}>Explorar categoría ↗</a></div><div class="card-grid">{articles.slice(0,3).map(article => <ArticleCard article={article}/>)}</div></section>}
