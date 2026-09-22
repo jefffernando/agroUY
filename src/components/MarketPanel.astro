@@ -1,0 +1,11 @@
+---
+import market from '../data/markets.json';
+import { url } from '../lib/content';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+---
+<section class:list={['market-panel', { compact }]} aria-labelledby="market-title">
+  <div class="market-heading"><div><span class="eyebrow">REFERENCIAS OFICIALES</span><h2 id="market-title">Mercados</h2></div>{compact && <a href={url('mercados/')}>Ver detalle ↗</a>}</div>
+  <div class="market-cards">{market.indicators.map((indicator) => <article class="market-card"><span>{indicator.title}</span><strong>{indicator.value}</strong><small>{indicator.unit}</small><p>Período: {indicator.period}</p></article>)}</div>
+  <p class="market-source">Fuente: <a href={market.source.url} rel="noopener noreferrer">{market.source.name} ↗</a> · Fuente actualizada: {market.source.sourceUpdatedLabel}. Estos indicadores tienen frecuencia semanal; no representan una cotización en tiempo real.</p>
+</section>

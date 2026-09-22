@@ -6,6 +6,7 @@ import CategorySection from '../components/CategorySection.astro';
 import NewsletterCTA from '../components/NewsletterCTA.astro';
 import SponsorBanner from '../components/SponsorBanner.astro';
 import SponsorCard from '../components/SponsorCard.astro';
+import MarketPanel from '../components/MarketPanel.astro';
 import { sponsors } from '../config/sponsors';
 import { categories } from '../config/categories';
 import { publishedArticles, url } from '../lib/content';
@@ -19,6 +20,7 @@ const latest = articles.filter(a=>a.id!==featured?.id);
 <div class="hero-grid">{featured && <FeaturedArticle article={featured}/>}<aside class="hero-aside"><div class="section-heading"><h2>Para tener a mano</h2><span class="dot"></span></div>{latest.slice(0,3).map((article,i)=><div class="numbered"><span>0{i+1}</span><ArticleCard article={article} compact/></div>)}<a class="text-link" href={url('articulos/')}>Todas las publicaciones ↗</a></aside></div>
 <section class="topic-strip"><span>EXPLORÁ EL AGRO</span>{categories.map(c=><a href={url('categorias/'+c.slug+'/')}>{c.name} ↗</a>)}</section>
 <section><div class="section-heading"><h2>Últimas publicaciones</h2><a href={url('articulos/')}>Ver todas ↗</a></div><div class="card-grid">{latest.slice(0,3).map(article=><ArticleCard article={article}/>)}</div></section>
+<MarketPanel compact />
 {sponsors.bannerSponsors.map(sponsor=><SponsorBanner sponsor={sponsor}/>)}
 <div class="editorial-note"><span>DEL DATO A LA DECISIÓN</span><p>Menos ruido.<br/><strong>Más herramientas para tu campo.</strong></p><a href={url('sobre-nosotros/')}>Conocé nuestra propuesta ↗</a></div>
 <NewsletterCTA/>

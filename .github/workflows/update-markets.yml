@@ -1,0 +1,63 @@
+name: Update official market indicators
+on:
+  schedule:
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: markets-and-pages
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.changes.outputs.changed }}
+    env:
+      SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io', github.repository_owner) }}
+      BASE_PATH: ${{ vars.BASE_PATH || (endsWith(github.event.repository.name, '.github.io') && '/') || format('/{0}', github.event.repository.name) }}
+      PUBLIC_GA_ID: ${{ vars.PUBLIC_GA_ID }}
+      PUBLIC_SEARCH_CONSOLE_VERIFICATION: ${{ vars.PUBLIC_SEARCH_CONSOLE_VERIFICATION }}
+      PUBLIC_NEWSLETTER_URL: ${{ vars.PUBLIC_NEWSLETTER_URL }}
+      PUBLIC_CONTACT_EMAIL: ${{ vars.PUBLIC_CONTACT_EMAIL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: node scripts/markets/update-inac.mjs
+      - id: changes
+        run: git diff --quiet -- src/data/markets.json || echo "changed=true" >> "$GITHUB_OUTPUT"
+      - run: npm run check
+        if: steps.changes.outputs.changed == 'true'
+      - run: npm run build
+        if: steps.changes.outputs.changed == 'true'
+      - run: npm test
+        if: steps.changes.outputs.changed == 'true'
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.changes.outputs.changed == 'true'
+        with:
+          path: dist
+      - name: Commit the official update
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "agro-uruguay-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/markets.json
+          git commit -m "Update official market indicators"
+          git push
+  deploy:
+    needs: update
+    if: needs.update.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

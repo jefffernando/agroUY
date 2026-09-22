@@ -59,6 +59,9 @@ console.log('OK: '+html.length+' páginas, '+links+' enlaces y recursos locales;
 const aliases=await readFile(join(root,'sitemap.xml'),'utf8');
 assert.ok(aliases.includes(origin+base+'/sitemap-0.xml'));
 assert.ok(!sitemap.includes('/tags/'),'Los tags noindex no deben aparecer en sitemap');
+assert.ok(await exists(join(root,'mercados','index.html')),'Falta la página de Mercados');
+const markets=await readFile(join(root,'mercados','index.html'),'utf8');
+assert.ok(markets.includes('Instituto Nacional de Carnes (INAC)'),'Falta atribución de INAC');
 for(const file of html){
  const source=await readFile(file,'utf8');
  const social=source.match(/property="og:image" content="([^"]+)"/)?.[1];
