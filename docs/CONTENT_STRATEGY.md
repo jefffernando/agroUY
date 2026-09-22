@@ -47,3 +47,6 @@ GA4 permite páginas de entrada, adquisición y contenido visitado; Search Conso
 
 ## Validación comercial
 Empezar con conversaciones sobre necesidades, alcance y formatos. Presentar audiencia medida y período de observación. Ofrecer un piloto acotado con entregables y reporte simple; no inventar casos de éxito. El interés explícito de una empresa y su disposición a un piloto valen más que una tarifa publicada sin demanda.
+
+## Google Trends
+Consultar el procedimiento y registro en [TRENDS_EDITORIAL.md](TRENDS_EDITORIAL.md). Usar interés relativo de Uruguay como señal complementaria, nunca como estimación de visitas.

@@ -1,9 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import { url } from '../lib/content';
 import MarketPanel from '../components/MarketPanel.astro';
 ---
 <Base title="Mercados e indicadores" description="Referencias oficiales de INAC sobre precio de novillo y faena bovina, con período y fuente visibles." crumbs={[{name:'Inicio',path:''},{name:'Mercados',path:'mercados/'}]}>
   <section class="page-heading"><span class="eyebrow">REFERENCIAS PARA CONTEXTUALIZAR</span><h1>Mercados e indicadores</h1><p>Datos oficiales seleccionados para seguir el mercado ganadero uruguayo. Se actualizan automáticamente solo cuando INAC publica un cambio validado.</p></section>
   <MarketPanel />
+  <p>Leé la <a href={url('articulos/indices-precios-agro-uruguayo/')}>guía del precio del novillo, cuarta balanza y referencias de INAC</a> para interpretar estos datos.</p>
   <article class="legal prose"><h2>Cómo leer estos datos</h2><p>Las referencias tienen período y metodología propios. No sustituyen una cotización, asesoramiento comercial ni las condiciones de una operación concreta. Verificá siempre el origen antes de tomar una decisión.</p><h2>Actualización automática</h2><p>El portal consulta diariamente dos indicadores públicos de INAC y publica una actualización únicamente si los valores o períodos cambiaron. Si la fuente no responde o devuelve un formato inesperado, no se publica ningún cambio.</p></article>
 </Base>

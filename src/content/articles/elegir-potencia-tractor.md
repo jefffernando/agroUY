@@ -1,7 +1,8 @@
 ---
-title: "Cómo elegir la potencia de un tractor para tu establecimiento"
+title: "Cómo elegir un tractor en Uruguay: potencia, implementos y costos"
 description: "La potencia no lo es todo: una guía para ordenar las tareas, comparar equipos y hacer mejores preguntas antes de elegir un tractor."
 date: 2026-09-21
+updatedDate: 2026-09-22
 category: maquinaria
 tags: ["tractores","planificacion"]
 author: "Redacción Agro Uruguay"
@@ -9,7 +10,7 @@ image: "/images/tractor.svg"
 draft: false
 featured: true
 sponsored: false
-demo: true
+demo: false
 sources:
   - title: "John Deere — Especificaciones de tractores y documentación de equipos"
     url: "https://www.deere.com/latin-america/es/tractores/"
@@ -48,6 +49,48 @@ La compra, el equipo compartido y la contratación de servicios son alternativas
 ## Antes de decidir
 Validá el dimensionamiento con las especificaciones del fabricante y una evaluación técnica del establecimiento. Guardá la información de las alternativas en una misma planilla y anotá los supuestos utilizados. Esa comparación será más útil que elegir solo por caballos de potencia.
 
+
+## Ficha para comparar dos tractores
+
+Completá esta ficha con el vendedor y el manual del modelo. Una casilla sin respuesta es una pregunta pendiente.
+
+| Qué comparar | Qué pedir por escrito |
+| --- | --- |
+| Trabajo principal | Implemento, ancho, terreno y horas disponibles |
+| Potencia | Motor y toma de fuerza, con norma de medición |
+| Hidráulica y enganche | Caudal, conexiones y capacidad de levante |
+| Estado | Año, horas documentadas, neumáticos y accesorios incluidos |
+| Respaldo en Uruguay | Taller que atiende tu departamento, traslado y plazo de repuestos |
+| Precio comparable | Moneda, impuestos, entrega, garantía y condiciones de pago |
+| Mantenimiento | Plan del manual y cotización de insumos |
+
+## La tarea cambia la comparación
+
+Estos ejemplos ayudan a preparar una consulta; no son dimensionamientos técnicos:
+
+- **Manejo de forraje:** llevá las especificaciones de la enfardadora o segadora y consultá compatibilidad de toma de fuerza, hidráulica y enganche.
+- **Carga frecuente:** pedí una evaluación del conjunto tractor-cargador y de las condiciones de estabilidad indicadas por el fabricante.
+- **Siembra:** detallá sembradora, terreno y ventana de trabajo. Compará la capacidad de completar las labores, además de la potencia anunciada.
+
+## Qué preguntar al comprar un tractor usado
+
+Solicitá número de serie, documentación de propiedad, antecedentes de mantenimiento y reparaciones. Contrastá las horas declaradas con los registros: el horómetro solo no describe el estado del equipo.
+
+Pedí una revisión independiente por un técnico, incluyendo pérdidas, transmisión, hidráulica, frenos y seguridad según el modelo. Acordá una demostración realizada por personal capacitado. Dejá por escrito los defectos encontrados, las reparaciones acordadas y la garantía ofrecida.
+
+## Comprar o contratar: una cuenta inicial
+
+Sumá los costos anuales de propiedad que correspondan —pérdida de valor, financiación, seguro y resguardo— y dividilos entre las horas de uso previstas. Agregá combustible, mantenimiento y operador por hora. Evitá contar dos veces un mismo costo.
+
+Compará con una propuesta de contratación para la misma labor, aclarando traslado, implemento y disponibilidad en la fecha necesaria. Es una estimación con tus datos, no una tarifa del mercado uruguayo.
+
+### ¿Cuántos HP necesito por hectárea?
+
+La superficie sola no alcanza. Reuní requisitos del implemento, condiciones del terreno y tiempo disponible; pedí al proveedor que justifique la selección con esos datos y el manual.
+
+### ¿Dónde verifico las especificaciones?
+
+En la ficha y el manual del modelo exacto. El catálogo citado es un punto de partida: no implica recomendación de marca ni confirma disponibilidad local. Solicitá al representante en Uruguay documentación y condiciones vigentes.
 
 ## Lecturas que complementan esta guía
 
