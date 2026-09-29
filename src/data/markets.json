@@ -2,8 +2,8 @@
   "source": {
     "name": "Instituto Nacional de Carnes (INAC) · Sitio del Ganadero",
     "url": "https://sitiodelganadero.inac.uy/com.inacsitioganadero.publico.sitio.home?CardId=0",
-    "updatedAt": "2026-09-24",
-    "sourceUpdatedLabel": "21/09/26"
+    "updatedAt": "2026-09-29",
+    "sourceUpdatedLabel": "28/09/26"
   },
   "indicators": [
     {
@@ -16,9 +16,9 @@
     {
       "id": "faena-semanal-bovinos",
       "title": "Faena Semanal de Bovinos",
-      "value": "27.758",
+      "value": "28.969",
       "unit": "cabezas",
-      "period": "13/09/2026 al 19/09/2026"
+      "period": "20/09/2026 al 26/09/2026"
     }
   ]
 }
