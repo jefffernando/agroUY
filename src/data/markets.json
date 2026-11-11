@@ -2,16 +2,16 @@
   "source": {
     "name": "Instituto Nacional de Carnes (INAC) · Sitio del Ganadero",
     "url": "https://sitiodelganadero.inac.uy/com.inacsitioganadero.publico.sitio.home?CardId=0",
-    "updatedAt": "2026-11-09",
+    "updatedAt": "2026-11-11",
     "sourceUpdatedLabel": "09/11/26"
   },
   "indicators": [
     {
       "id": "novillo-4ta-balanza",
       "title": "Precio Novillo 4ta. Balanza",
-      "value": "6,08",
+      "value": "6,09",
       "unit": "USD/kg",
-      "period": "25/10/2026 al 31/10/2026"
+      "period": "01/11/2026 al 07/11/2026"
     },
     {
       "id": "faena-semanal-bovinos",
